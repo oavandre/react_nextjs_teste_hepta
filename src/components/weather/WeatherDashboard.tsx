@@ -14,6 +14,7 @@ import { DEFAULT_LOCATION } from "@/services/weatherService";
 import type { Location, TemperatureUnit } from "@/types/weather";
 import { getWeatherCondition } from "@/utils/weatherCode";
 import { CitySearch } from "./CitySearch";
+import { CurrentLocationButton } from "./CurrentLocationButton";
 import { ForecastList } from "./ForecastList";
 import { UnitSwitcher } from "./UnitSwitcher";
 import { WeatherIcon } from "./WeatherIcon";
@@ -64,7 +65,10 @@ export function WeatherDashboard() {
 
   return (
     <main className={styles.page}>
-      <CitySearch onSelect={setLocation} />
+      <div className={styles.toolbar}>
+        <CitySearch onSelect={setLocation} />
+        <CurrentLocationButton onSelect={setLocation} />
+      </div>
       <section className={styles.dashboard}>
         <header className={styles.header}>
           <div>
@@ -73,7 +77,7 @@ export function WeatherDashboard() {
               <MapPin aria-hidden="true" size={20} />
               {location.name}
             </h1>
-            <p>{locationDetails}</p>
+            {locationDetails && <p>{locationDetails}</p>}
           </div>
           <div className={styles.headerActions}>
             <UnitSwitcher

@@ -1,0 +1,49 @@
+.container { position: relative; flex: 0 0 auto; }
+
+.container > button {
+  display: flex;
+  height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 18px;
+  border: 1px solid #e2eaf2;
+  border-radius: 16px;
+  color: #2563eb;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 32px rgba(38, 79, 121, 0.07);
+  cursor: pointer;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.container > button:disabled { cursor: wait; opacity: 0.7; }
+
+.error {
+  position: absolute;
+  top: 59px;
+  right: 0;
+  width: max-content;
+  max-width: min(300px, 90vw);
+  padding: 9px 12px;
+  border: 1px solid #f5c2bd;
+  border-radius: 10px;
+  color: #b42318;
+  background: #fff4f2;
+  box-shadow: 0 10px 24px rgba(120, 40, 30, 0.1);
+  font-size: 0.78rem;
+}
+
+.spinner { animation: spin 1s linear infinite; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 720px) {
+  .container { width: 100%; }
+  .container > button { width: 100%; }
+  .error { right: 50%; transform: translateX(50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation: none; }
+}

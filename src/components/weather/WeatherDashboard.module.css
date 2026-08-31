@@ -18,6 +18,14 @@
   backdrop-filter: blur(18px);
 }
 
+.toolbar {
+  display: flex;
+  width: min(100%, 920px);
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+}
+
 .dashboard {
   min-width: 0;
   overflow: hidden;
@@ -157,6 +165,7 @@
 @keyframes spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 640px) {
+  .toolbar { align-items: stretch; flex-direction: column; }
   .currentWeather { grid-template-columns: 1fr; }
   .metrics { grid-template-columns: 1fr; }
   .metric:last-child { grid-column: auto; }
