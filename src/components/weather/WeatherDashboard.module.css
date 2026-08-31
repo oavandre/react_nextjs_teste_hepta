@@ -75,6 +75,11 @@
 
 .feelsLike { margin-top: 16px; color: var(--muted); }
 
+.condition {
+  margin-top: 8px;
+  font-weight: 650;
+}
+
 .metrics {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

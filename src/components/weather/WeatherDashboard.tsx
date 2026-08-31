@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 import { useWeather } from "@/hooks/useWeather";
 import { DEFAULT_LOCATION } from "@/services/weatherService";
+import { getWeatherCondition } from "@/utils/weatherCode";
+import { WeatherIcon } from "./WeatherIcon";
 import { WeatherMetric } from "./WeatherMetric";
 import styles from "./WeatherDashboard.module.css";
 
@@ -46,6 +48,7 @@ export function WeatherDashboard() {
   }
 
   const current = data.current;
+  const condition = getWeatherCondition(current.weather_code);
 
   return (
     <main className={styles.page}>
@@ -59,7 +62,11 @@ export function WeatherDashboard() {
             </h1>
             <p>{DEFAULT_LOCATION.country}</p>
           </div>
-          <CloudSun className={styles.weatherIcon} aria-hidden="true" />
+          <WeatherIcon
+            className={styles.weatherIcon}
+            code={current.weather_code}
+            isDay={current.is_day === 1}
+          />
         </header>
 
         <div className={styles.currentWeather}>
@@ -71,6 +78,7 @@ export function WeatherDashboard() {
             <p className={styles.feelsLike}>
               Sensação de {Math.round(current.apparent_temperature)}°C
             </p>
+            <p className={styles.condition}>{condition.label}</p>
           </div>
 
           <div className={styles.metrics}>
