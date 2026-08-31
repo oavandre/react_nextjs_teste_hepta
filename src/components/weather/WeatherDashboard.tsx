@@ -11,6 +11,7 @@ import {
 import { useWeather } from "@/hooks/useWeather";
 import { DEFAULT_LOCATION } from "@/services/weatherService";
 import { getWeatherCondition } from "@/utils/weatherCode";
+import { ForecastList } from "./ForecastList";
 import { WeatherIcon } from "./WeatherIcon";
 import { WeatherMetric } from "./WeatherMetric";
 import styles from "./WeatherDashboard.module.css";
@@ -99,6 +100,8 @@ export function WeatherDashboard() {
             />
           </div>
         </div>
+
+        <ForecastList daily={data.daily} />
       </section>
     </main>
   );

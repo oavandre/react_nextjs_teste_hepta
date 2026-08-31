@@ -15,7 +15,11 @@
   backdrop-filter: blur(18px);
 }
 
-.dashboard { padding: clamp(24px, 5vw, 48px); }
+.dashboard {
+  min-width: 0;
+  overflow: hidden;
+  padding: clamp(24px, 5vw, 48px);
+}
 
 .header {
   display: flex;
