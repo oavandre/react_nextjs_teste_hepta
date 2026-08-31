@@ -3,8 +3,22 @@ export type TemperatureUnit = "celsius" | "fahrenheit";
 export type Location = {
   name: string;
   country: string;
+  region?: string;
   latitude: number;
   longitude: number;
+};
+
+export type GeocodingApiLocation = {
+  id: number;
+  name: string;
+  country?: string;
+  admin1?: string;
+  latitude: number;
+  longitude: number;
+};
+
+export type GeocodingResponse = {
+  results?: GeocodingApiLocation[];
 };
 
 export type CurrentWeather = {
