@@ -11,8 +11,9 @@ import {
 import { useState } from "react";
 import { useWeather } from "@/hooks/useWeather";
 import { DEFAULT_LOCATION } from "@/services/weatherService";
-import type { TemperatureUnit } from "@/types/weather";
+import type { Location, TemperatureUnit } from "@/types/weather";
 import { getWeatherCondition } from "@/utils/weatherCode";
+import { CitySearch } from "./CitySearch";
 import { ForecastList } from "./ForecastList";
 import { UnitSwitcher } from "./UnitSwitcher";
 import { WeatherIcon } from "./WeatherIcon";
@@ -20,10 +21,11 @@ import { WeatherMetric } from "./WeatherMetric";
 import styles from "./WeatherDashboard.module.css";
 
 export function WeatherDashboard() {
+  const [location, setLocation] = useState<Location>(DEFAULT_LOCATION);
   const [temperatureUnit, setTemperatureUnit] =
     useState<TemperatureUnit>("celsius");
   const { data, error, isPending, refetch } = useWeather(
-    DEFAULT_LOCATION,
+    location,
     temperatureUnit,
   );
 
@@ -56,18 +58,22 @@ export function WeatherDashboard() {
   const current = data.current;
   const condition = getWeatherCondition(current.weather_code);
   const unitSymbol = temperatureUnit === "celsius" ? "C" : "F";
+  const locationDetails = [location.region, location.country]
+    .filter(Boolean)
+    .join(", ");
 
   return (
     <main className={styles.page}>
+      <CitySearch onSelect={setLocation} />
       <section className={styles.dashboard}>
         <header className={styles.header}>
           <div>
             <span className={styles.eyebrow}>Previsão do tempo</span>
             <h1>
               <MapPin aria-hidden="true" size={20} />
-              {DEFAULT_LOCATION.name}
+              {location.name}
             </h1>
-            <p>{DEFAULT_LOCATION.country}</p>
+            <p>{locationDetails}</p>
           </div>
           <div className={styles.headerActions}>
             <UnitSwitcher

@@ -1,7 +1,10 @@
 .page {
-  display: grid;
+  display: flex;
   min-height: 100vh;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 18px;
   padding: 24px;
 }
 
