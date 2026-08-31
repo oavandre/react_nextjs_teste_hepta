@@ -8,18 +8,23 @@ import {
   Umbrella,
   Wind,
 } from "lucide-react";
+import { useState } from "react";
 import { useWeather } from "@/hooks/useWeather";
 import { DEFAULT_LOCATION } from "@/services/weatherService";
+import type { TemperatureUnit } from "@/types/weather";
 import { getWeatherCondition } from "@/utils/weatherCode";
 import { ForecastList } from "./ForecastList";
+import { UnitSwitcher } from "./UnitSwitcher";
 import { WeatherIcon } from "./WeatherIcon";
 import { WeatherMetric } from "./WeatherMetric";
 import styles from "./WeatherDashboard.module.css";
 
 export function WeatherDashboard() {
+  const [temperatureUnit, setTemperatureUnit] =
+    useState<TemperatureUnit>("celsius");
   const { data, error, isPending, refetch } = useWeather(
     DEFAULT_LOCATION,
-    "celsius",
+    temperatureUnit,
   );
 
   if (isPending) {
@@ -50,6 +55,7 @@ export function WeatherDashboard() {
 
   const current = data.current;
   const condition = getWeatherCondition(current.weather_code);
+  const unitSymbol = temperatureUnit === "celsius" ? "C" : "F";
 
   return (
     <main className={styles.page}>
@@ -63,21 +69,28 @@ export function WeatherDashboard() {
             </h1>
             <p>{DEFAULT_LOCATION.country}</p>
           </div>
-          <WeatherIcon
-            className={styles.weatherIcon}
-            code={current.weather_code}
-            isDay={current.is_day === 1}
-          />
+          <div className={styles.headerActions}>
+            <UnitSwitcher
+              onChange={setTemperatureUnit}
+              value={temperatureUnit}
+            />
+            <WeatherIcon
+              className={styles.weatherIcon}
+              code={current.weather_code}
+              isDay={current.is_day === 1}
+            />
+          </div>
         </header>
 
         <div className={styles.currentWeather}>
           <div>
             <p className={styles.temperature}>
               {Math.round(current.temperature_2m)}
-              <span>°C</span>
+              <span>°{unitSymbol}</span>
             </p>
             <p className={styles.feelsLike}>
-              Sensação de {Math.round(current.apparent_temperature)}°C
+              Sensação de {Math.round(current.apparent_temperature)}°
+              {unitSymbol}
             </p>
             <p className={styles.condition}>{condition.label}</p>
           </div>
