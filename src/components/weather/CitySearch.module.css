@@ -66,6 +66,7 @@
   border-radius: 16px;
   background: var(--surface-solid);
   box-shadow: 0 20px 50px var(--shadow);
+  animation: resultsEntrance 180ms ease-out both;
 }
 
 .results > button {
@@ -105,10 +106,16 @@
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
+@keyframes resultsEntrance {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @media (max-width: 480px) {
   .submitButton { padding: 0 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .results,
   .spinner { animation: none; }
 }
