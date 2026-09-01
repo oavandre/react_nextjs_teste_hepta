@@ -1,12 +1,12 @@
 .container {
   position: relative;
   z-index: 10;
-  width: min(100%, 620px);
+  width: min(100%, 510px);
 }
 
 .form {
   display: flex;
-  height: 52px;
+  height: 44px;
   align-items: center;
   gap: 10px;
   padding: 5px 6px 5px 16px;
@@ -42,7 +42,7 @@
 }
 
 .submitButton {
-  height: 40px;
+  height: 34px;
   flex: 0 0 auto;
   padding: 0 18px;
   border: 0;
@@ -57,7 +57,7 @@
 
 .results {
   position: absolute;
-  top: 60px;
+  top: 50px;
   right: 0;
   left: 0;
   overflow: hidden;
