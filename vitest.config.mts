@@ -16,7 +16,18 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "html"],
-      include: ["src/utils/**/*.ts"],
+      include: [
+        "src/utils/**/*.ts",
+        "src/services/**/*.ts",
+        "src/hooks/**/*.ts",
+        "src/components/weather/**/*.tsx",
+      ],
+      thresholds: {
+        statements: 90,
+        branches: 90,
+        functions: 90,
+        lines: 90,
+      },
     },
   },
 });
