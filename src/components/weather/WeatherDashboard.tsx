@@ -85,15 +85,15 @@ export function WeatherDashboard() {
 
   return (
     <main className={`${styles.page} ${styles[weatherScene]}`}>
-      <div className={styles.atmosphere} aria-hidden="true">
-        <span />
-        <span />
-      </div>
       <div className={styles.toolbar}>
         <CitySearch onSelect={setLocation} />
         <CurrentLocationButton onSelect={setLocation} />
       </div>
       <section className={styles.dashboard}>
+        <div className={styles.atmosphere} aria-hidden="true">
+          <span />
+          <span />
+        </div>
         <header className={styles.header}>
           <div>
             <span className={styles.eyebrow}>Previsão do tempo</span>

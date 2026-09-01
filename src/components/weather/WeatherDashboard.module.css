@@ -1,5 +1,4 @@
 .page {
-  position: relative;
   display: flex;
   min-height: 100vh;
   align-items: center;
@@ -7,41 +6,58 @@
   flex-direction: column;
   gap: 12px;
   padding: 16px;
-  isolation: isolate;
-  background-image: url("/weather/sunny.jpg");
-  background-position: center;
-  background-size: cover;
-  transition: background-image 400ms ease;
-  animation: skyMovement 28s ease-in-out infinite alternate;
+  background: radial-gradient(circle at top, var(--icon-background), var(--background) 58%);
 }
 
-.page::before {
-  position: fixed;
-  z-index: -1;
-  inset: 0;
-  background: linear-gradient(rgba(8, 25, 48, 0.08), rgba(8, 25, 48, 0.22));
-  content: "";
-  pointer-events: none;
+.sunny .dashboard {
+  background-image: linear-gradient(var(--weather-overlay), var(--weather-overlay)), url("/weather/sunny.jpg");
 }
 
-.sunny { background-image: url("/weather/sunny.jpg"); }
-.cloudy { background-image: url("/weather/cloudy.jpg"); }
-.rainy { background-image: url("/weather/rainy.jpg"); }
+.cloudy .dashboard {
+  background-image: linear-gradient(var(--weather-overlay), var(--weather-overlay)), url("/weather/cloudy.jpg");
+}
+
+.rainy .dashboard {
+  background-image: linear-gradient(var(--weather-overlay), var(--weather-overlay)), url("/weather/rainy.jpg");
+}
 
 .atmosphere {
-  position: fixed;
-  z-index: -1;
+  position: absolute;
+  z-index: 0;
   inset: 0;
   overflow: hidden;
+  border-radius: inherit;
   pointer-events: none;
 }
 
 .atmosphere span { position: absolute; inset: -30%; opacity: 0; }
 
-.cloudy .atmosphere span:first-child {
-  opacity: 0.28;
-  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.48), transparent 58%);
-  animation: cloudDrift 18s linear infinite;
+.sunny .atmosphere::before {
+  position: absolute;
+  top: 70px;
+  left: 48%;
+  content: "☀️";
+  opacity: 0.78;
+  font-size: 3.2rem;
+  filter: drop-shadow(0 0 16px rgba(255, 196, 0, 0.55));
+  animation: sunFloat 4s ease-in-out infinite;
+}
+
+.cloudy .atmosphere::before,
+.cloudy .atmosphere::after {
+  position: absolute;
+  content: "☁️";
+  opacity: 0.55;
+  font-size: 4rem;
+  animation: emojiCloud 16s linear infinite;
+}
+
+.cloudy .atmosphere::before { top: 12%; left: -12%; }
+.cloudy .atmosphere::after {
+  top: 38%;
+  left: -18%;
+  font-size: 2.8rem;
+  animation-delay: -8s;
 }
 
 .rainy .atmosphere span:first-child,
@@ -64,6 +80,22 @@
   animation-delay: -300ms;
 }
 
+.rainy .atmosphere::before,
+.rainy .atmosphere::after {
+  position: absolute;
+  top: -25%;
+  content: "💧  💧  💧  💧  💧";
+  opacity: 0.5;
+  font-size: 1.1rem;
+  word-spacing: 3.5rem;
+  animation: emojiRain 2.2s linear infinite;
+}
+
+.rainy .atmosphere::after {
+  left: 18%;
+  animation-delay: -1.1s;
+}
+
 .dashboard,
 .status {
   width: min(100%, 760px);
@@ -83,10 +115,21 @@
 }
 
 .dashboard {
+  position: relative;
+  isolation: isolate;
   min-width: 0;
   overflow: hidden;
   padding: clamp(20px, 3vw, 28px);
-  animation: dashboardEntrance 500ms ease-out both;
+  background-position: center;
+  background-size: 108% auto;
+  animation:
+    dashboardEntrance 500ms ease-out both,
+    skyMovement 24s ease-in-out 500ms infinite alternate;
+}
+
+.dashboard > :not(.atmosphere) {
+  position: relative;
+  z-index: 1;
 }
 
 .header {
@@ -240,9 +283,19 @@
   to { background-position: 52% center; }
 }
 
-@keyframes cloudDrift {
-  from { transform: translateX(-12%); }
-  to { transform: translateX(12%); }
+@keyframes sunFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+  50% { transform: translateY(-10px) rotate(12deg) scale(1.08); }
+}
+
+@keyframes emojiCloud {
+  from { transform: translateX(0); }
+  to { transform: translateX(900px); }
+}
+
+@keyframes emojiRain {
+  from { transform: translateY(-20px); }
+  to { transform: translateY(700px); }
 }
 
 @keyframes rainfall {
@@ -263,11 +316,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page,
   .dashboard,
   .spinner { animation: none; }
 
-  .atmosphere span { animation: none !important; }
+  .atmosphere span,
+  .atmosphere::before,
+  .atmosphere::after { animation: none !important; }
 
   .metric { transition: none; }
   .metric:hover { transform: none; }
