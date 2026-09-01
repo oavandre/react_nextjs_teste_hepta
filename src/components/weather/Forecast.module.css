@@ -1,7 +1,7 @@
 .forecast {
   margin-top: 40px;
   padding-top: 28px;
-  border-top: 1px solid #e2eaf2;
+  border-top: 1px solid var(--border);
 }
 
 .header {
@@ -30,9 +30,9 @@
   align-items: center;
   flex-direction: column;
   padding: 14px 8px;
-  border: 1px solid #e2eaf2;
+  border: 1px solid var(--border);
   border-radius: 16px;
-  background: rgba(248, 251, 255, 0.75);
+  background: var(--surface-soft);
   text-align: center;
 }
 

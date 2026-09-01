@@ -2,9 +2,9 @@
   display: flex;
   gap: 3px;
   padding: 4px;
-  border: 1px solid #e2eaf2;
+  border: 1px solid var(--border);
   border-radius: 12px;
-  background: rgba(248, 251, 255, 0.85);
+  background: var(--surface-soft);
 }
 
 .switcher button {
@@ -25,6 +25,6 @@
 }
 
 .switcher button:focus-visible {
-  outline: 3px solid rgba(37, 99, 235, 0.25);
+  outline: 3px solid var(--focus-ring);
   outline-offset: 2px;
 }

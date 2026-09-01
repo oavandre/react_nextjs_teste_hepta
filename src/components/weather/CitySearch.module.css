@@ -10,10 +10,10 @@
   align-items: center;
   gap: 10px;
   padding: 5px 6px 5px 16px;
-  border: 1px solid #e2eaf2;
+  border: 1px solid var(--border);
   border-radius: 16px;
-  background: #fff;
-  box-shadow: 0 12px 32px rgba(38, 79, 121, 0.1);
+  background: var(--surface-solid);
+  box-shadow: 0 12px 32px var(--shadow);
 }
 
 .form > svg { flex: 0 0 auto; color: var(--muted); }
@@ -27,7 +27,7 @@
   background: transparent;
 }
 
-.form input::placeholder { color: #8090a3; }
+.form input::placeholder { color: var(--muted); }
 .form input::-webkit-search-cancel-button { display: none; }
 
 .clearButton {
@@ -62,10 +62,10 @@
   left: 0;
   overflow: hidden;
   padding: 7px;
-  border: 1px solid #e2eaf2;
+  border: 1px solid var(--border);
   border-radius: 16px;
-  background: #fff;
-  box-shadow: 0 20px 50px rgba(38, 79, 121, 0.18);
+  background: var(--surface-solid);
+  box-shadow: 0 20px 50px var(--shadow);
 }
 
 .results > button {
@@ -83,8 +83,8 @@
 }
 
 .results > button:hover,
-.results > button:focus-visible { background: #edf4ff; }
-.results > button svg { flex: 0 0 auto; color: #2563eb; }
+.results > button:focus-visible { background: var(--surface-hover); }
+.results > button svg { flex: 0 0 auto; color: var(--accent); }
 .results > button span { display: flex; flex-direction: column; gap: 3px; }
 .results small { color: var(--muted); }
 

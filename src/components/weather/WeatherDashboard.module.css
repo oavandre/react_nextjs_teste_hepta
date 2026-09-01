@@ -11,10 +11,10 @@
 .dashboard,
 .status {
   width: min(100%, 920px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border);
   border-radius: 28px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 24px 70px rgba(38, 79, 121, 0.14);
+  background: var(--surface);
+  box-shadow: 0 24px 70px var(--shadow);
   backdrop-filter: blur(18px);
 }
 
@@ -40,7 +40,7 @@
 }
 
 .eyebrow {
-  color: #2563eb;
+  color: var(--accent);
   font-size: 0.75rem;
   font-weight: 750;
   letter-spacing: 0.14em;
@@ -55,7 +55,7 @@
   font-size: clamp(1.5rem, 4vw, 2rem);
 }
 
-.header h1 svg { color: #2563eb; }
+.header h1 svg { color: var(--accent); }
 .header p { margin-top: 5px; color: var(--muted); }
 
 .headerActions {
@@ -64,6 +64,8 @@
   flex-direction: column;
   gap: 12px;
 }
+
+.preferences { display: flex; align-items: center; gap: 8px; }
 
 .weatherIcon {
   width: clamp(72px, 12vw, 112px);
@@ -114,9 +116,9 @@
   gap: 12px;
   min-height: 76px;
   padding: 14px;
-  border: 1px solid #e2eaf2;
+  border: 1px solid var(--border);
   border-radius: 16px;
-  background: rgba(248, 251, 255, 0.75);
+  background: var(--surface-soft);
 }
 
 .metric:last-child { grid-column: 1 / -1; }
@@ -128,8 +130,8 @@
   flex: 0 0 auto;
   place-items: center;
   border-radius: 12px;
-  color: #2563eb;
-  background: #e9f1ff;
+  color: var(--accent);
+  background: var(--icon-background);
 }
 
 .metric span:last-child { display: flex; flex-direction: column; gap: 3px; }
@@ -147,7 +149,7 @@
   text-align: center;
 }
 
-.status svg { color: #2563eb; }
+.status svg { color: var(--accent); }
 .status p { color: var(--muted); }
 
 .status button {

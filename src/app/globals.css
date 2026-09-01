@@ -2,6 +2,32 @@
   --background: #f4f8fc;
   --foreground: #132238;
   --muted: #62748a;
+  --accent: #2563eb;
+  --border: #e2eaf2;
+  --surface: rgba(255, 255, 255, 0.82);
+  --surface-solid: #fff;
+  --surface-soft: rgba(248, 251, 255, 0.85);
+  --surface-hover: #edf4ff;
+  --icon-background: #e9f1ff;
+  --shadow: rgba(38, 79, 121, 0.14);
+  --focus-ring: rgba(37, 99, 235, 0.25);
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --background: #09111f;
+  --foreground: #e7eef8;
+  --muted: #9aabc0;
+  --accent: #6da7ff;
+  --border: #26364b;
+  --surface: rgba(18, 30, 48, 0.88);
+  --surface-solid: #121e30;
+  --surface-soft: rgba(28, 43, 65, 0.85);
+  --surface-hover: #203653;
+  --icon-background: #1b3558;
+  --shadow: rgba(0, 0, 0, 0.34);
+  --focus-ring: rgba(109, 167, 255, 0.4);
+  color-scheme: dark;
 }
 
 html {
@@ -20,6 +46,7 @@ body {
   flex-direction: column;
   color: var(--foreground);
   background: var(--background);
+  transition: color 200ms ease, background 200ms ease;
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -33,3 +60,7 @@ body {
 
 a { color: inherit; text-decoration: none; }
 button, input { font: inherit; }
+
+@media (prefers-reduced-motion: reduce) {
+  body { transition: none; }
+}

@@ -16,6 +16,7 @@ import { getWeatherCondition } from "@/utils/weatherCode";
 import { CitySearch } from "./CitySearch";
 import { CurrentLocationButton } from "./CurrentLocationButton";
 import { ForecastList } from "./ForecastList";
+import { ThemeToggle } from "./ThemeToggle";
 import { UnitSwitcher } from "./UnitSwitcher";
 import { WeatherIcon } from "./WeatherIcon";
 import { WeatherMetric } from "./WeatherMetric";
@@ -80,10 +81,13 @@ export function WeatherDashboard() {
             {locationDetails && <p>{locationDetails}</p>}
           </div>
           <div className={styles.headerActions}>
-            <UnitSwitcher
-              onChange={setTemperatureUnit}
-              value={temperatureUnit}
-            />
+            <div className={styles.preferences}>
+              <UnitSwitcher
+                onChange={setTemperatureUnit}
+                value={temperatureUnit}
+              />
+              <ThemeToggle />
+            </div>
             <WeatherIcon
               className={styles.weatherIcon}
               code={current.weather_code}

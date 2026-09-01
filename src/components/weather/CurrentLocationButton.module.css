@@ -7,11 +7,11 @@
   justify-content: center;
   gap: 8px;
   padding: 0 18px;
-  border: 1px solid #e2eaf2;
+  border: 1px solid var(--border);
   border-radius: 16px;
-  color: #2563eb;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 12px 32px rgba(38, 79, 121, 0.07);
+  color: var(--accent);
+  background: var(--surface-solid);
+  box-shadow: 0 12px 32px var(--shadow);
   cursor: pointer;
   font-weight: 700;
   white-space: nowrap;
