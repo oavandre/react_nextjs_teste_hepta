@@ -22,6 +22,24 @@ import { WeatherIcon } from "./WeatherIcon";
 import { WeatherMetric } from "./WeatherMetric";
 import styles from "./WeatherDashboard.module.css";
 
+type WeatherScene = "sunny" | "cloudy" | "rainy";
+
+function getWeatherScene(code: number): WeatherScene {
+  if (
+    (code >= 51 && code <= 67) ||
+    (code >= 80 && code <= 82) ||
+    (code >= 95 && code <= 99)
+  ) {
+    return "rainy";
+  }
+
+  if ((code >= 1 && code <= 3) || code === 45 || code === 48 || code >= 71) {
+    return "cloudy";
+  }
+
+  return "sunny";
+}
+
 export function WeatherDashboard() {
   const [location, setLocation] = useState<Location>(DEFAULT_LOCATION);
   const [temperatureUnit, setTemperatureUnit] =
@@ -59,13 +77,18 @@ export function WeatherDashboard() {
 
   const current = data.current;
   const condition = getWeatherCondition(current.weather_code);
+  const weatherScene = getWeatherScene(current.weather_code);
   const unitSymbol = temperatureUnit === "celsius" ? "C" : "F";
   const locationDetails = [location.region, location.country]
     .filter(Boolean)
     .join(", ");
 
   return (
-    <main className={styles.page}>
+    <main className={`${styles.page} ${styles[weatherScene]}`}>
+      <div className={styles.atmosphere} aria-hidden="true">
+        <span />
+        <span />
+      </div>
       <div className={styles.toolbar}>
         <CitySearch onSelect={setLocation} />
         <CurrentLocationButton onSelect={setLocation} />

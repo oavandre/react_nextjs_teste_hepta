@@ -1,4 +1,5 @@
 .page {
+  position: relative;
   display: flex;
   min-height: 100vh;
   align-items: center;
@@ -6,6 +7,61 @@
   flex-direction: column;
   gap: 12px;
   padding: 16px;
+  isolation: isolate;
+  background-image: url("/weather/sunny.jpg");
+  background-position: center;
+  background-size: cover;
+  transition: background-image 400ms ease;
+  animation: skyMovement 28s ease-in-out infinite alternate;
+}
+
+.page::before {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(rgba(8, 25, 48, 0.08), rgba(8, 25, 48, 0.22));
+  content: "";
+  pointer-events: none;
+}
+
+.sunny { background-image: url("/weather/sunny.jpg"); }
+.cloudy { background-image: url("/weather/cloudy.jpg"); }
+.rainy { background-image: url("/weather/rainy.jpg"); }
+
+.atmosphere {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.atmosphere span { position: absolute; inset: -30%; opacity: 0; }
+
+.cloudy .atmosphere span:first-child {
+  opacity: 0.28;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.48), transparent 58%);
+  animation: cloudDrift 18s linear infinite;
+}
+
+.rainy .atmosphere span:first-child,
+.rainy .atmosphere span:last-child {
+  opacity: 0.34;
+  background-image: repeating-linear-gradient(
+    105deg,
+    transparent 0,
+    transparent 18px,
+    rgba(210, 230, 255, 0.65) 19px,
+    transparent 21px
+  );
+  background-size: 36px 58px;
+  animation: rainfall 650ms linear infinite;
+}
+
+.rainy .atmosphere span:last-child {
+  opacity: 0.18;
+  animation-duration: 900ms;
+  animation-delay: -300ms;
 }
 
 .dashboard,
@@ -179,6 +235,21 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes skyMovement {
+  from { background-position: 48% center; }
+  to { background-position: 52% center; }
+}
+
+@keyframes cloudDrift {
+  from { transform: translateX(-12%); }
+  to { transform: translateX(12%); }
+}
+
+@keyframes rainfall {
+  from { transform: translate3d(-2%, -12%, 0); }
+  to { transform: translate3d(2%, 12%, 0); }
+}
+
 @media (max-width: 640px) {
   .toolbar { align-items: stretch; flex-direction: column; }
   .currentWeather { grid-template-columns: 1fr; }
@@ -192,8 +263,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .page,
   .dashboard,
   .spinner { animation: none; }
+
+  .atmosphere span { animation: none !important; }
 
   .metric { transition: none; }
   .metric:hover { transform: none; }
